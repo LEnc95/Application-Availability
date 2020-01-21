@@ -20,7 +20,7 @@ $openHTM = Get-Content $openHTMfile -Include $openHTMfile
   Foreach($Uri in $URLList) { 
   $time = try{ 
   $request = $null 
-  $result1 = Measure-Command { $request = Invoke-WebRequest -Uri $uri } 
+  $result1 = Measure-Command { $request = Invoke-WebRequest -Uri $uri -UseDefaultCredentials} 
   $result1.TotalMilliseconds 
   }  
   catch 
@@ -75,9 +75,9 @@ if($result -ne $null)
     $Outputreport += "</Table></BODY></HTML>" 
 } 
 ### Path can be changed to represent the directory you would like to serve the report from.
-$Outputreport | out-file \report.htm 
+$Outputreport | out-file "report.htm" 
 ### $webhook value can be changed to represent the MS Teams channel you would like to be alearted.
-$webhook = 'https://outlook.office.com/webhook/13c03d6b-464e-4105-af61-b0bc001ba1d6@e04b15c8-7a1e-4390-9b5b-28c7c205a233/IncomingWebhook/2790691b410e4b3bbee06d0fa26e3373/d5d87265-3979-4cad-b713-bdb31823f312'
+$webhook = 'https://outlook.office.com/webhook/07047aaa-2a8f-44d8-b2d6-bf2f76d6d42a@fe7b0418-5142-4fcf-9440-7a0163adca0d/IncomingWebhook/618b6e4f1956497f955b782c46a5cbb2/d99e4d67-ba3c-4ed5-88dd-8a7c94174b29'
 $body = ConvertTo-Json -Depth 4 @{
     title = 'Phone App Availability'
     text = "A test completed @ $uri"
@@ -103,6 +103,7 @@ $body = ConvertTo-Json -Depth 4 @{
         }
     )
 }
+<# Webhook message delivery failed with error: Microsoft Teams endpoint returned HTTP error 429
 Foreach($Entry in $Result) 
     { 
         if($Entry.StatusCode -ne "200") 
@@ -110,3 +111,4 @@ Foreach($Entry in $Result)
           Invoke-RestMethod -uri $webhook -Method Post -body $body -ContentType 'application/json'
         } 
     }
+#>
