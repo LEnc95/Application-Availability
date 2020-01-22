@@ -112,3 +112,19 @@ Foreach($Entry in $Result)
         } 
     }
 #>
+
+$keys = "keys.txt"
+$webhook = Get-Content $keys -ErrorAction SilentlyContinue 
+$x = 1
+
+Foreach($Entry in $Result) 
+{ 
+    if($Entry.StatusCode -ne "200") 
+        { 
+            Invoke-RestMethod -uri $webhook.IndexOf($x) -Method Post -body $body -ContentType 'application/json'
+            $x++
+            if ($x -eq 11){
+            $x=0
+        } 
+    }
+}
