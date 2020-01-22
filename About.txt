@@ -1,4 +1,4 @@
-***** About - app.ps1 *****
+***** About - Application-Availavility *****
 
 SYNOPSIS  
      Checks availability of URL's
@@ -11,7 +11,7 @@ DESCRIPTION
 NOTES  
     File Name  : app.ps1  
     Author     : Luke Encrapera
-    Email      : luke.encrapera@dcsg.com
+    Email      : luke.encrapera@gianteagle.com
     Requires   : PowerShell V2+  
 
 • URLList.txt is used to store each URL you would like to check the status on. Please separate entry’s with a new line for each URL.

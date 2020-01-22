@@ -78,6 +78,8 @@ if($result -ne $null)
 $Outputreport | out-file "report.htm" 
 ### $webhook value can be changed to represent the MS Teams channel you would like to be alearted.
 $webhook = 'https://outlook.office.com/webhook/07047aaa-2a8f-44d8-b2d6-bf2f76d6d42a@fe7b0418-5142-4fcf-9440-7a0163adca0d/IncomingWebhook/618b6e4f1956497f955b782c46a5cbb2/d99e4d67-ba3c-4ed5-88dd-8a7c94174b29'
+### Need to add support for < 12TPS | Create multiple keys to interate request (12TPS/((export.txt).length)+1))
+#$webhookkeys = 'https://outlook.office.com/webhook/07047aaa-2a8f-44d8-b2d6-bf2f76d6d42a@fe7b0418-5142-4fcf-9440-7a0163adca0d/IncomingWebhook/618b6e4f1956497f955b782c46a5cbb2/d99e4d67-ba3c-4ed5-88dd-8a7c94174b29', 
 $body = ConvertTo-Json -Depth 4 @{
     title = 'Phone App Availability'
     text = "A test completed @ $uri"
