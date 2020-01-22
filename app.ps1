@@ -8,7 +8,7 @@ DESCRIPTION
 NOTES  
     File Name  : app.ps1  
     Author     : Luke Encrapera
-    Email      : luke.encrapera@dcsg.com
+    Email      : luke.encrapera@gianteagle.com
     Requires   : PowerShell V2+  
 Documentation can be found in About.txt     
 ######################################>

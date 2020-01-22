@@ -1,4 +1,16 @@
-﻿#SetExecutionPolicy -Unrestricted
+﻿<######################################  
+SYNOPSIS  
+     Data scrapes all anchors from website to CSV with full tag info and exports href elements to a text document.
+DESCRIPTION   
+    Generates a report proivding detailed information for all links on the set site.
+NOTES  
+    File Name  : get-URL.ps1  
+    Author     : Luke Encrapera
+    Email      : luke.encrapera@gianteagle.com
+    Requires   : PowerShell V2+  
+Documentation can be found in About.txt     
+######################################>
+#SetExecutionPolicy -Unrestricted
 
 function export_CSV {
     Clear-Host
@@ -17,15 +29,17 @@ function export_TXT {
     $links.href | out-file -filepath C:\Users\914476\Documents\Scripts\URLstatus\GEURLs.txt -append -width 200
 }
 
+<#
 function check_status {
-    #for($link in $links){
+    #foreach($link in $links){
     #}
     $uri = http://gecentral/Pages/ViewAllApplications.aspx
     $site = Invoke-WebRequest -Uri $uri -UseDefaultCredentials
     $results = $site.statusCode
     $results
 }
+#>
 
 export_CSV
 export_TXT
-check_status
+#check_status
