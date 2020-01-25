@@ -20,8 +20,8 @@ $URLList = Get-Content $URLListFile -ErrorAction SilentlyContinue
 $Result = @() 
 
 #Variable declared to open report htm in browser or for attachment to SMTP mail. (Currently not in use)
-$openHTMfile = ".\src\report.htm"
-$openHTM = Get-Content $openHTMfile -Include $openHTMfile
+$openHTMfile = "src\report.htm"
+$openHTM = Get-Content $openHTMfile -Include $openHTMfile -ErrorAction SilentlyContinue
 
 #Check status of URLs in $URLList
 Foreach($Uri in $URLList) { 
@@ -84,7 +84,7 @@ if($null -ne $result)
     $Outputreport += "</Table></BODY></HTML>" 
 } 
 ### Path can be changed to represent the directory you would like to serve the report from.
-$Outputreport | out-file ".\src\report.htm" 
+$Outputreport | out-file -FilePath "src\report.htm" -Force -ErrorAction SilentlyContinue
 
 
 ### $webhook value can be changed to represent the MS Teams channel you would like to be alearted.
@@ -93,7 +93,7 @@ $Outputreport | out-file ".\src\report.htm"
 #$webhookkeys = 'https://outlook.office.com/webhook/07047aaa-2a8f-44d8-b2d6-bf2f76d6d42a@fe7b0418-5142-4fcf-9440-7a0163adca0d/IncomingWebhook/618b6e4f1956497f955b782c46a5cbb2/d99e4d67-ba3c-4ed5-88dd-8a7c94174b29', 
 #convert each URL into JSON that can be sent as incoming webhook to alert when a server status code is not 200.
 $body = ConvertTo-Json -Depth 4 @{
-    title = 'Phone App Availability'
+    title = 'App Availability'
     text = "A test completed @ $uri"
     sections = @(
         @{

@@ -28,8 +28,17 @@ function export_TXT {
     #$links | export-txt 'C:\Users\914476\Documents\Scripts\URLstatus\GEURLs.txt' 
     $links.href -replace '.*=' | out-file -filepath C:\Users\914476\Documents\Scripts\URLstatus\GEURLs.txt -Force -width 200 #Review -replace on href 
 }
-export_CSV
-export_TXT
+
+function extract_href {
+    Clear-Host
+    $geturl=Invoke-WebRequest http://gecentral/Pages/ViewAllApplications.aspx -UseDefaultCredentials
+    $links = ($geturl.Links ) #| Where href -match "url"
+    $links.href -replace('.*\=') | out-file -filepath H:\Documents\GitHub\Application-Availability\src\links.txt -Force -width 200 #Review -replace on href 
+}
+
+#export_CSV
+#export_TXT
+extract_href
 
 <#
 function check_status {
