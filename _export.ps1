@@ -18,7 +18,10 @@ function export_CSV {
     Start-Sleep -Seconds 1.5
     $links = ($geturl.Links  <#|Where href -match '\url=http\d+' | where class -NotMatch '+'#>)
     #$links.outertext + $links.href #| Select-Object -First 6 #Need to filter out recents
-    $links | Export-Csv 'C:\Users\914476\Documents\Scripts\URLstatus\GE_Links.csv' 
+    $logondomain = whoami
+    $username = $logondomain -replace ".*\\"
+    $links | Export-Csv "C:\Users\$username\Documents\GitHub\Application-Availability\src\export.csv" 
+    #C:\Users\914476\Documents\GitHub\Application-Availability
 }
 
 function export_TXT {
@@ -26,19 +29,13 @@ function export_TXT {
     $geturl=Invoke-WebRequest http://gecentral/Pages/ViewAllApplications.aspx -UseDefaultCredentials
     $links = ($geturl.Links)
     #$links | export-txt 'C:\Users\914476\Documents\Scripts\URLstatus\GEURLs.txt' 
-    $links.href -replace '.*=' | out-file -filepath C:\Users\914476\Documents\Scripts\URLstatus\GEURLs.txt -Force -width 200 #Review -replace on href 
+    $logondomain = whoami
+    $username = $logondomain -replace ".*\\"
+    $links.href -replace '.*=' -replace 'javascript:;' -replace '#' | out-file -filepath "C:\Users\$username\Documents\GitHub\Application-Availability\src\links.txt" -Force -width 200 #Review -replace on href 
 }
+
 export_CSV
 export_TXT
 
-<#
-function check_status {
-    #foreach($link in $links){
-    #}
-    $uri = http://gecentral/Pages/ViewAllApplications.aspx
-    $site = Invoke-WebRequest -Uri $uri -UseDefaultCredentials
-    $results = $site.statusCode
-    $results
-}
-#>
-#check_status
+
+
